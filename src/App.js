@@ -20,6 +20,16 @@ class App extends Component {
     ]})
   }
 
+  nameChangedHandler = (event) => {
+      this.setState({
+        persons: [
+        { name: 'Efaz', age: '24'},
+        { name: event.target.value, age:' 20'},
+        { name: 'ET', age: '29'}
+      ]
+    })
+  }
+
   render() {
     //Call to switchNameHandler in button is inefficient, use bind as often as possible
     return (
@@ -33,7 +43,8 @@ class App extends Component {
         <Person
           name={this.state.persons[1].name}
           age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Martinez')}>My Hobbies: Racing</Person>
+          click={this.switchNameHandler.bind(this, 'Martinez')}
+          changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
         <Person
           name={this.state.persons[2].name}
           age={this.state.persons[2].age}/>
