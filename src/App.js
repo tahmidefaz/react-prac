@@ -21,11 +21,12 @@ class App extends Component {
   }
 
   render() {
+    //Call to switchNameHandler in button is inefficient, use bind as often as possible
     return (
       <div className="App">
         <h1>Hi, I am a React APP</h1>
         <p>This is really working!</p>
-        <button onClick={this.switchNameHandler.bind(this, 'Adan')}>Switch Name</button>
+        <button onClick={() => this.switchNameHandler('Adan')}>Switch Name</button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}/>
