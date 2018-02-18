@@ -8,7 +8,8 @@ class App extends Component {
       { name: 'Efaz', age: '24'},
       { name: 'Tahmid', age:' 20'},
       { name: 'ET', age: '26'}
-    ]
+    ],
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -30,6 +31,11 @@ class App extends Component {
     })
   }
 
+  togglePersonsHandler = () => {
+      const doesShow = this.state.showPersons;
+      this.setState({showPersons: !doesShow});
+  }
+
   render() {
     //Call to switchNameHandler in button is inefficient, use bind as often as possible
     const style = {
@@ -40,24 +46,35 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let persons = null;
+
+    if(this.state.showPersons){
+      persons = (
+          <div>
+              <Person
+                name={this.state.persons[0].name}
+                age={this.state.persons[0].age}/>
+              <Person
+                name={this.state.persons[1].name}
+                age={this.state.persons[1].age}
+                click={this.switchNameHandler.bind(this, 'Martinez')}
+                changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
+              <Person
+                name={this.state.persons[2].name}
+                age={this.state.persons[2].age}/>
+            </div>
+      )
+    }
+
     return (
       <div className="App">
         <h1>Hi, I am a React APP</h1>
         <p>This is really working!</p>
         <button
           style={style}
-          onClick={() => this.switchNameHandler('Adan')}>Switch Name</button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}/>
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Martinez')}
-          changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}/>
+          onClick={this.togglePersonsHandler}>Toggle Persons
+        </button>
+        {persons}
       </div>
     );
     // return React.createElement('div',{className: 'App'},React.createElement('h1',null,'Does this work?'));
